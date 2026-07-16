@@ -84,11 +84,33 @@
         align-items: center;
         justify-content: center;
         width: 2rem;
+        border: 1px solid #ddd;
         height: 2rem;
         cursor: pointer;
         color: #4f7ad8;
         padding: 0.25rem;
         margin: 0;
+        border-radius: 6px;
+
+        user-select: none;
+        position: relative;
+
+        em {
+            height: 0.8rem;
+            width: 0.8rem;
+            position: absolute;
+            top: -0.5rem;
+            font-size: 0.6rem;
+            padding: 0.2rem;
+            border-radius: 1rem;
+            right: -0.5rem;
+            text-align: center;
+            background-color: #c0392b;
+            color: #fff;
+            text-decoration: none;
+            font-style: normal;
+
+        }
 
         img {
             width: 1.5rem;
@@ -96,7 +118,7 @@
 
         &.active {
             background: #4f7ad8;
-            border-radius: 50%;
+            border: solid 1px transparent;
 
             img {
                 filter: invert(1);
@@ -130,76 +152,7 @@ i {
     margin-bottom: 0.8rem;
 }
 
-.filter-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    flex-direction: column;
-    width: 100%;
 
-    @include break-to-tablet {
-        flex-direction: row;
-        align-items: center;
-
-    }
-
-
-    .filter-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding-inline-end: 1rem;
-        user-select: none;
-        min-height: 2.5rem;
-
-        &:not(:last-child) {
-            width: 100%;
-            justify-content: space-between;
-        }
-
-        &:has(input[type="checkbox"]) {
-            border: 1px solid #e7e7e7;
-            border-radius: 6px;
-        }
-
-        @include break-to-tablet {
-            width: auto !important;
-            justify-content: flex-start;
-
-            &:not(:last-child) {
-                border-right: 1px solid #ddd;
-            }
-        }
-
-        &:has(input[type="checkbox"]:checked) {
-            font-weight: 600;
-            background-color: #e1f0ff;
-            border-radius: 0.5rem;
-        }
-
-        input[type="checkbox"] {
-            width: 1rem;
-            margin-inline-start: 1rem;
-            cursor: pointer;
-        }
-
-        label {
-            cursor: pointer;
-            margin-inline-end: 1rem;
-        }
-
-        select {
-            padding: 0.6rem 1rem;
-            min-width: 10rem;
-            flex-grow: 1;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-            font-size: 0.95rem;
-            background: #fff;
-        }
-    }
-}
 
 .status-message {
     color: #666;

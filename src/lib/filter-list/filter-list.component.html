@@ -1,0 +1,35 @@
+<div class="filter-row">
+    <div class="filter-item">
+        <label for="category">Category:</label>
+
+        <select id="category" [value]="filterCategory()" (change)="filterCategory.set($any($event.target).value)">
+
+            @for (category of categories(); track category) {
+            <option [value]=" category">
+                {{ category }}
+            </option>
+            }
+        </select>
+    </div>
+
+    <div class="filter-item">
+        <label for="price">Price Range:</label>
+
+        <select id="price" [value]="filterPriceRange()" (change)="filterPriceRange.set($any($event.target).value)">
+            @for (priceRange of priceRanges(); track priceRange) {
+            <option [value]="priceRange">
+                {{ priceRange }}
+            </option>
+            }
+        </select>
+    </div>
+
+    <div class="filter-item">
+        <input id="inStock" type="checkbox" [checked]="inStockOnly()"
+            (change)="inStockOnly.set($any($event.target).checked)" />
+        <label for="inStock">
+            In Stock Only
+        </label>
+    </div>
+
+</div>

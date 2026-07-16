@@ -6,10 +6,10 @@ import { CartItem, Item } from '../interfaces/item.interface';
 @Injectable({ providedIn: 'root' })
 export class ItemService {
     private readonly url = 'assets/items.json';
-    private _http: HttpClient = inject(HttpClient);
     public cartList: WritableSignal<CartItem[]> = signal([]);
 
-    constructor() { }
+
+    private _http: HttpClient = inject(HttpClient);
 
     // Fetch all items from the JSON file
     public getItems(): Observable<Item[]> {
@@ -21,7 +21,7 @@ export class ItemService {
     // Fetch a single item by its ID
     public getItemById(id: number): Observable<Item | undefined> {
         return this.getItems().pipe(
-            map(items => items.find(item => item.id === id))
+            map((items: Item[]) => items.find(item => item.id === id))
         );
     }
 }

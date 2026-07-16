@@ -10,39 +10,17 @@
                                 (click)="showFilterRow.set(!showFilterRow())"
                                 (keypress)="showFilterRow.set(!showFilterRow())">
                                 <img src="../../assets/images/filter.svg" alt="Filter">
+                                @if (filterCount()) {
+                                <em>{{filterCount()}}</em>
+                                }
                         </i>
                 </div>
 
         </div>
         @if(showFilterRow()) {
-        <div class="filter-row">
-                <div class="filter-item">
-                        <label for="category">Category:</label>
-                        <select id="category" (change)="filterCategory.set($any($event.target).value)">
-                                @for (category of categories(); track category) {
-                                <option [value]="category" [selected]="filterCategory() === category">
-                                        {{ category }}
-                                </option>
-                                }
-                        </select>
-                </div>
-
-                <div class="filter-item">
-                        <label for="price">Price Range:</label>
-                        <select id="price" (change)="filterPriceRange.set($any($event.target).value)">
-                                @for (priceRange of priceRanges(); track priceRange) {
-                                <option [value]="priceRange" [selected]="filterPriceRange() === priceRange">
-                                        {{ priceRange}}
-                                </option>
-                                }
-                        </select>
-                </div>
-
-                <div class="filter-item">
-                        <input type="checkbox" id="inStock" (click)="inStockOnly.set($event.target.checked)" />
-                        <label for="inStock">In Stock Only</label>
-                </div>
-        </div>
+        <app-filter-list [categories]="categories()" [priceRanges]="priceRanges()" [(filterCategory)]="filterCategory"
+                [(filterPriceRange)]="filterPriceRange" [(inStockOnly)]="inStockOnly">
+        </app-filter-list>
         }
         @if (loading()) {
         <p class="status-message">Loading items…</p>
@@ -59,7 +37,8 @@
                 @for (item of filteredItems(); track item?.id) {
                 <a class="item-card" [routerLink]="['/items', item.id]">
                         <div class="item-image">
-                                <img [src]="item.image" [alt]="item.name" [style.view-transition-name]="'product-' + item.id" />
+                                <img [src]="item.image" [alt]="item.name"
+                                        [style.view-transition-name]="'product-' + item.id" />
                         </div>
                         <div class="item-info">
                                 <h3>{{ item.name }}</h3>
