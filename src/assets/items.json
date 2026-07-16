@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Sunglasses",
+    "category": "Accessories",
+    "price": 79.99,
+    "description": "Stylish UV-protection sunglasses for daily wear.",
+    "inStock": true,
+    "stockCount": 12,
+    "image": "assets/images/sunglasses.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Camera",
+    "category": "Electronics",
+    "price": 499.99,
+    "description": "High-resolution digital camera with multiple lenses.",
+    "inStock": false,
+    "stockCount": 0,
+    "image": "assets/images/camera.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Watch",
+    "category": "Accessories",
+    "price": 199.99,
+    "description": "Elegant analog watch with leather strap.",
+    "inStock": true,
+    "stockCount": 7,
+    "image": "assets/images/watch.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Shoes",
+    "category": "Footwear",
+    "price": 129.99,
+    "description": "Comfortable and durable sneakers for everyday use.",
+    "inStock": true,
+    "stockCount": 19,
+    "image": "assets/images/shoes.jpg"
+  }
+]

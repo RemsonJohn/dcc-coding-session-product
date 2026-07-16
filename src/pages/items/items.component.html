@@ -1,0 +1,89 @@
+<section class="items-page">
+        <div class="items-header">
+                <h2>Products</h2>
+                <div class="controls">
+                        <div class="search-container">
+                                <input type="text" class="filter-input" placeholder="Search products..."
+                                        (input)=" filter.set($event.target.value)" aria-label="search" />
+                        </div>
+                        <i class="filter-icon" [class.active]="showFilterRow()" tabindex="0"
+                                (click)="showFilterRow.set(!showFilterRow())"
+                                (keypress)="showFilterRow.set(!showFilterRow())">
+                                <img src="../../assets/images/filter.svg" alt="Filter">
+                        </i>
+                </div>
+
+        </div>
+        @if(showFilterRow()) {
+        <div class="filter-row">
+                <div class="filter-item">
+                        <label for="category">Category:</label>
+                        <select id="category" (change)="filterCategory.set($any($event.target).value)">
+                                @for (category of categories(); track category) {
+                                <option [value]="category" [selected]="filterCategory() === category">
+                                        {{ category }}
+                                </option>
+                                }
+                        </select>
+                </div>
+
+                <div class="filter-item">
+                        <label for="price">Price Range:</label>
+                        <select id="price" (change)="filterPriceRange.set($any($event.target).value)">
+                                @for (priceRange of priceRanges(); track priceRange) {
+                                <option [value]="priceRange" [selected]="filterPriceRange() === priceRange">
+                                        {{ priceRange}}
+                                </option>
+                                }
+                        </select>
+                </div>
+
+                <div class="filter-item">
+                        <input type="checkbox" id="inStock" (click)="inStockOnly.set($event.target.checked)" />
+                        <label for="inStock">In Stock Only</label>
+                </div>
+        </div>
+        }
+        @if (loading()) {
+        <p class="status-message">Loading items…</p>
+        }
+        @else if (error()) {
+        <p class="status-message error">Unable to load items. Please try again later.</p>
+        }
+        @else {
+        @if (filteredItems().length === 0) {
+        <p class="status-message">No items match your filter.</p>
+        }
+        @else {
+        <div class="items-grid">
+                @for (item of filteredItems(); track item?.id) {
+                <a class="item-card" [routerLink]="['/items', item.id]">
+                        <div class="item-image">
+                                <img [src]="item.image" [alt]="item.name" [style.view-transition-name]="'product-' + item.id" />
+                        </div>
+                        <div class="item-info">
+                                <h3>{{ item.name }}</h3>
+                                <p class="category">{{ item.category }}</p>
+                                <p class="price">{{ item.price | currency }}</p>
+
+                                <div class="stock-row">
+                                        <span class="stock-badge" [class.in-stock]="item?.inStock"
+                                                [class.out-of-stock]="!item?.inStock">
+                                                {{ item?.inStock ? "In Stock" : "Out of Stock" }}
+                                        </span>
+                                        @if (item?.inStock) {
+                                        <span class="stock-count">{{ item?.stockCount }} left in stock</span>
+                                        }
+                                </div>
+                                <div class="item-footer">
+                                        <span class="btn details-btn">View Details</span>
+                                </div>
+
+                        </div>
+
+                </a>
+                }
+        </div>
+        }
+        }
+</section>

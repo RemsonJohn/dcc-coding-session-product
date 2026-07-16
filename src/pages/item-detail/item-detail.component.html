@@ -1,0 +1,59 @@
+@if(loading()) {
+<p class="status-message">Loading item details…</p>
+}
+@if (!loading() && notFound()) {
+<p class="status-message error">Error loading item details. Please try again later.</p>
+}
+@if (!loading() && !notFound()) {
+<section class="item-detail">
+    <p class="breadcrumb">
+        <a routerLink="/">Products</a> &gt; <span>{{ item()?.category }}</span>
+    </p>
+
+    <div class="detail-content">
+        <div class="item-image">
+            <img [src]="item()?.image" alt="{{ item()?.name }}" [style.view-transition-name]="'product-' + item()?.id" />
+        </div>
+
+        <div class="item-info">
+            <h1>{{ item()?.name }}</h1>
+            <p class="item-price">{{ item()?.price | currency }}</p>
+            <p class="item-description">{{ item()?.description }}</p>
+
+            <div class="stock-row">
+                <span class="stock-badge" [class.in-stock]="item()?.inStock" [class.out-of-stock]="!item()?.inStock">
+                    {{ item()?.inStock ? "In Stock" : "Out of Stock" }}
+                </span>
+                @if (item()?.inStock) {
+                <span class="stock-count">{{ item()?.stockCount }} left in stock</span>
+                }
+            </div>
+            @if (item()?.inStock) {
+            <div class="cart-section">
+                <div class="cart-count">
+                    <button class="btn minus-btn"
+                        (click)="cartCount() > 1 && cartCount.set(cartCount() - 1); addedToCart.set(false)">-</button>
+                    <div class="current-count">{{ cartCount() }}</div>
+                    <button class="btn plus-btn"
+                        (click)="cartCount() < (item()?.stockCount || 0) && cartCount.set(cartCount() + 1); addedToCart.set(false)">+</button>
+                </div>
+                <button class="btn cart-btn" [class.cart-add]="item()?.inStock"
+                    (click)="addedToCart.set(true); addToCart()" [class.cart-added]="addedToCart()"
+                    [disabled]="!item()?.inStock || addedToCart()">
+                    <i><img class="cart-icon" src="{{cartIconSrc()}}" alt="Add to Cart"></i>
+                    {{ addedToCart() ? "Item Added to Cart" : "Add to Cart" }}
+                </button>
+            </div>
+            }
+
+            <h3>Product Details</h3>
+            <ul class="item-details">
+                <li>{{ item()?.description }}</li>
+                <li>{{ item()?.description }}</li>
+                <li>{{ item()?.description }}</li>
+            </ul>
+
+        </div>
+    </div>
+</section>
+}

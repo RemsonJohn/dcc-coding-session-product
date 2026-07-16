@@ -1,0 +1,69 @@
+@use 'sass:math';
+
+@import 'variables';
+
+@function rem-calc($values, $base-value: $rem-base) {
+  $max: length($values);
+  @if $max == 1 {
+    @return convert-to-rem(nth($values, 1), $base-value);
+  }
+  $rem-values: ();
+  @for $i from 1 through $max {
+    $rem-values: append($rem-values, convert-to-rem(nth($values, $i), $base-value));
+  }
+  @return $rem-values;
+}
+
+@function strip-unit($num) {
+  @return math.div($num, ($num * 0 + 1));
+}
+
+@function convert-to-rem($value, $base-value: $rem-base) {
+  $value: math.div(strip-unit($value), strip-unit($base-value)) * 1rem;
+
+  // Turn 0rem into 0
+  @if $value == 0 {
+    $value: 0;
+  }
+
+  @return $value;
+}
+
+/*************************
+** BREAK POINTS **********
+*************************/
+
+/**
+  Used to set styles when device width larger than the target mobile width
+ */
+@mixin break-to-mobile {
+  @media (min-width: $break-to-mobile) {
+    @content;
+  }
+}
+/**
+  Used to set styles when device width larger than the target tablet width
+ */
+@mixin break-to-tablet {
+  @media (min-width: $break-to-tablet) {
+    @content;
+  }
+}
+
+/**
+Used to set styles when device width larger than the target desktop width
+ */
+@mixin break-to-desktop {
+  @media (min-width: $break-to-desktop) {
+    @content;
+  }
+}
+
+/**
+Used to set styles when device width larger than the target desktop width
+ */
+@mixin break-to-wider-desktop {
+  @media (min-width: $break-to-wider-desktop) {
+    @content;
+  }
+}
